@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  node:
+    image: node:latest
+    hostname: nodejs.dev
+    volumes:
+      - ./web:/usr/src/app
+    ports:
+      - "80:8080"
+    command: node /usr/src/app/server.js
+    restart: always

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  </head>
+  <body>
+    <script>
+      var socket = io.connect();
+
+      socket.on('date', function (data) {
+        $('#date').text(data.date);
+      });
+
+      socket.on('chat-data', function (data) {
+        $('#chat').append('<p>' + data.message + '</p>');
+      });
+
+      $(function() {
+        $('#message-form').submit(function(e) {
+          e.preventDefault();
+
+          var $text = $('#text');
+          socket.emit('client-data', {message: $text.val() });
+          $text.val('');
+        });
+      });
+    </script>
+
+    <h3>Server Date</h3>
+    <div id="date"></div>
+
+    <h3>Chat</h3>
+    <form action="#" id="message-form">
+      <div id="chat"></div>
+      <textarea id="text" cols="100" rows="5" placeholder="Send a message to the client…"></textarea>
+      <input type="submit" value="Send Message" />
+    </form>
+  </body>
+</html>
