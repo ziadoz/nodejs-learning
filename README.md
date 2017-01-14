@@ -10,4 +10,10 @@ docker exec -it nodejs_node_1 npm --prefix /usr/src/app install
 ```
 
 ## Links
-- [Node JS Socket Tutorial](http://danielnill.com/nodejs-tutorial-with-socketio)
+- http://danielnill.com/nodejs-tutorial-with-socketio
+- https://nodejs.org/en/
+- https://nodemon.io/
+- https://github.com/socketio/socket.io
+- https://github.com/websockets/ws
+- http://koajs.com/
+- http://expressjs.com/
