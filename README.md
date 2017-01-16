@@ -1,5 +1,5 @@
 # Node JS Test Application
-A simple Node JS test application.
+A simple Node JS test application for learning.
 
 ## Usage
 ```
