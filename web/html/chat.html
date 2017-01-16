@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <style>
+      body    { margin: 25px; background-color: #e9e9e9; font-family: sans-serif; }
+      #chat   { width: 100%; min-height: 250px; border: 1px solid silver; background: white; }
+      #chat p { margin: 10px; padding: 4px; border-bottom: 1px solid silver; font-size: 1rem; }
+      #text   { width: 100%; margin-top: 25px; margin-bottom: 10px; }
+      #date   { display: inline-block; margin-top: 25px; padding: 5px; border: 1px solid silver; background: white; font-size: 1rem; }
+      input   { font-size: 1rem; }
+    </style>
+  </head>
+  <body>
+    <script>
+      var socket = io.connect();
+
+      socket.on('date', function (data) {
+        $('#date').text(formatDate(data.date));
+      });
+
+      socket.on('history', function (history) {
+        history.forEach(function (message) {
+          $('#chat').append('<p>' + message + '</p>');
+        });
+      });
+
+      socket.on('chat-data', function (data) {
+        $('#chat').append('<p>' + data.message + '</p>');
+      });
+
+      var formatDate = function (string) {
+        var date = new Date();
+        return date.getDate() + '-' + date.getMonth() + 1 + '-' + date.getFullYear() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+      };
+
+      $(function() {
+        $('#message-form').submit(function(e) {
+          e.preventDefault();
+
+          var $text = $('#text');
+          socket.emit('client-data', {message: $text.val() });
+          $text.val('');
+        });
+
+        $('#date').text(formatDate(''));
+      });
+    </script>
+
+    <h1>Chat</h1>
+    <form action="#" id="message-form">
+      <div id="chat"></div>
+      <input type="text" id="text" placeholder="Send a message to the client…" />
+      <input type="submit" value="Send Message" />
+    </form>
+
+    <div id="date">...</div>
+  </body>
+</html>

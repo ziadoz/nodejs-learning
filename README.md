@@ -1,12 +1,20 @@
 # Node JS Test Application
 A simple Node JS test application.
 
+## Usage
+```
+docker-compose up -d
+docker exec -it <container> npm --prefix /usr/src/app install
+docker-compose restart
+```
+
 ## Useful Commands
 ```
 docker-compose up -d
 docker-compose down
-docker logs nodejs_node_1
-docker exec -it nodejs_node_1 npm --prefix /usr/src/app install
+docker logs <container>
+docker exec -it <container> npm --prefix /usr/src/app install
+docker exec -it <container> npm --prefix /usr/src/app -g install nodemon
 ```
 
 ## Links
